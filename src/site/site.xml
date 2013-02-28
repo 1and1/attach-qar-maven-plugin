@@ -27,13 +27,13 @@ limitations under the License.
           <searchEnabled>true</searchEnabled>
           <sideBarEnabled>true</sideBarEnabled>
           <gitHub>
-              <projectId>1and1/bill-of-materials-maven-plugin</projectId>
+              <projectId>1and1/attach-qar-maven-plugin</projectId>
               <ribbonOrientation>right</ribbonOrientation>
               <ribbonColor>gray</ribbonColor>
           </gitHub>
           <googlePlusOne />
           <ohloh>
-              <projectId>bill-of-materials-maven-plugin</projectId>
+              <projectId>attach-qar-maven-plugin</projectId>
               <widget>factoids</widget>
           </ohloh>
       </fluidoSkin>
