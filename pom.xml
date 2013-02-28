@@ -24,9 +24,9 @@
         <jacoco.propertyName>invoker.mavenOpts</jacoco.propertyName>
     </properties>
     <scm>
-        <connection>scm:git:git://github.com/mfriedenhagen/attach-qar-maven-plugin.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/mfriedenhagen/attach-qar-maven-plugin.git</developerConnection>
-        <url>https://github.com/mfriedenhagen/attach-qar-maven-plugin/</url>
+        <connection>scm:git:git://github.com/1and1/attach-qar-maven-plugin.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/1and1/attach-qar-maven-plugin.git</developerConnection>
+        <url>https://github.com/1and1/attach-qar-maven-plugin/</url>
         <tag>HEAD</tag>
     </scm>
     <ciManagement>
@@ -35,7 +35,7 @@
     </ciManagement>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/mfriedenhagen/attach-qar-maven-plugin/issues</url>
+        <url>https://github.com/1and1/attach-qar-maven-plugin/issues</url>
     </issueManagement>
     <developers>
         <developer>
