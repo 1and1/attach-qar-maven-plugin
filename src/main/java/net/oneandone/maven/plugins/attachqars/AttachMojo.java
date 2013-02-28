@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,31 +37,59 @@ import org.apache.maven.project.MavenProjectHelper;
 @Mojo(name = "attach", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
 public class AttachMojo extends AbstractMojo {
 
+    /**
+     * Holder class.
+     */
     private static class FileToClassifier {
 
+        /**
+         * Filename relative to target.
+         */
         final String fileName;
+
+        /**
+         * Classifier for attachment.
+         */
         final String classifier;
 
+        /**
+         * @param fileName   see field.
+         * @param classifier see field.
+         */
         public FileToClassifier(String fileName, String classifier) {
             this.fileName = fileName;
             this.classifier = classifier;
         }
 
+        /**
+         * Factory method.
+         *
+         * @param fileName   see field.
+         * @param classifier see field.
+         *
+         * @return instance.
+         */
         public static FileToClassifier create(String fileName, String classifier) {
             return new FileToClassifier(fileName, classifier);
         }
     }
+
+    /**
+     * List of files to attach.
+     */
     private final static List<FileToClassifier> fileToClassifiers = Arrays.asList(
             FileToClassifier.create("checkstyle-result.xml", "checkstyle-report"),
             FileToClassifier.create("pmd.xml", "pmd-report"),
             FileToClassifier.create("cpd.xml", "cpd-report"),
             FileToClassifier.create("findbugsXml.xml", "findbugs-report"),
             FileToClassifier.create("site/jacoco/jacoco.xml", "jacoco-report"));
+
     /**
      * The Maven project.
      */
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
+
     /**
      * Project Helper for attaching files.
      */
