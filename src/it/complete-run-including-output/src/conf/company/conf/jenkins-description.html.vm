@@ -1,0 +1,4 @@
+<h3>Bill of Materials</h3>
+<pre id="bill-of-materials">
+$project.properties.qaBillOfMaterials
+</pre>

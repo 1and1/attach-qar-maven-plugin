@@ -1,0 +1,2 @@
+#!/bin/sh
+mvn clean verify site site:stage scm-publish:publish-scm

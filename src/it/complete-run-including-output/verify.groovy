@@ -1,0 +1,14 @@
+File buildLogFile = new File(basedir, "build.log" );
+assert buildLogFile.exists();
+String buildLog = buildLogFile.getText("UTF-8");
+assert buildLog.contains('attach-qar');
+assert buildLog.contains("Skipping execution for pom project company:company-parent-pom:1.0-SNAPSHOT");
+assert buildLog.contains("site/jacoco/jacoco.xml not found in company:child2:1.0-SNAPSHOT");
+File[] files = new File(basedir, "target/repo/company/child1/1.0-SNAPSHOT/").listFiles();
+assert files.toString().findAll("child1-1.0-.*-checkstyle-report\\.xml").size()>0;
+assert files.toString().findAll("child1-1.0-.*-pmd-report\\.xml").size()>0;
+assert files.toString().findAll("child1-1.0-.*-cpd-report\\.xml").size()>0;
+assert files.toString().findAll("child1-1.0-.*-findbugs-report\\.xml").size()>0;
+assert files.toString().findAll("child1-1.0-.*-jacoco-report\\.xml").size()>0;
+//"child1-1.0-SNAPSHOT-pmdreport.xml").exists();
+return true;
