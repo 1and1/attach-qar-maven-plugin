@@ -23,85 +23,38 @@ limitations under the License.
     <body>
         <section name="Introduction">
             <p>
-                This plugin writes a bill of materials compatible with shasum to
-                a designated file (see <a href="create-mojo.html#bomPath">bomPath</a>)
-                The format looks like this:
-            </p>
-            <source><![CDATA[
-# company:company-parent-pom:1.0-SNAPSHOT user=mirko
-bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
-# company:child1:1.0-SNAPSHOT user=mirko
-587f6199c6adeb6e9cdbd84298a98b2b6c329b5d  child1-1.0-SNAPSHOT-sources.jar
-0987fda07a889d2a1a50a491754c96cd4b06b769  child1-1.0-SNAPSHOT.jar
-082fa2206c4a00e3f428e9100199a0337ad42fdb  child1-1.0-SNAPSHOT.pom
-# company:child2:1.0-SNAPSHOT user=mirko
-8abf906b7ccd2d319850f2d295a83dd79dc08871  child2-1.0-SNAPSHOT-sources.jar
-17108712a4ab1538c12a7ccf51330e190fde286a  child2-1.0-SNAPSHOT.jar
-5661e9270a02c5359be47615bb6ed9911105d878  child2-1.0-SNAPSHOT.pom
-            ]]></source>
-            <p>Lateron you may reuse this information by reading it back again.</p>
-            <p>As can be seen, the plugin works with multi-module projects as 
-            well, the different modules are seperated by a comment including
-            the maven coordinates and the name of the user doing the build.
+                This plugin attaches the reports of some quality plugins during install,
+                so they are deployed by default. Missing reports are ignored. For a list
+                of attached reports, take a look at
+                <a href="xref/net/oneandone/maven/plugins/attachqars/AttachMojo.html">
+                    AttachMojo
+                </a>
             </p>
         </section>
         <section name="Usage">
-            <subsection name="Writing the bill of materials.">
-                <p>Note that by default the plugin is invoked during the
-                    <code>install</code> phase, as only then we have access to the
-                    attached artifacts.
-                </p>
-                <source><![CDATA[
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>${project.artifactId}</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>create-bill-of-materials</id>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-       </plugin>
-   </build>
+            <p>Note that by default the plugin is invoked during the
+                <code>install</code> phase, as only after verify we have
+                the artifacts to attache.
+            </p>
+            <source><![CDATA[
+<build>
+    <plugins>
+        <plugin>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+            <executions>
+                <execution>
+                    <id>default-attach</id>
+                    <goals>
+                        <goal>attach</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+   </plugin>
+</build>
 ]]></source>
-            </subsection>
-            <subsection name="Reading the bill of materials.">
-                <p>The information read from the file is placed in 
-                    <code>property</code> called 
-                    <code>qaBillOfMaterials</code>.
-                </p>
-                <p>See 
-                    <a href="https://github.com/1and1/bill-of-materials-maven-plugin/tree/master/src/it/complete-run-including-output">integration tests</a>
-                    for more information how to use the property afterwards with e.g. the 
-                    <tt>velocity-maven-plugin</tt>.
-                </p>
-                <source><![CDATA[
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>${project.artifactId}</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>read-bill-of-materials</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>read</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-       </plugin>
-   </build>
-]]></source>
-            </subsection>
         </section>
     </body>
 </document>
