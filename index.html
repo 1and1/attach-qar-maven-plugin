@@ -28,7 +28,7 @@
             
     
         
-    <a href="http://github.com/1and1/bill-of-materials-maven-plugin">
+    <a href="http://github.com/1and1/attach-qar-maven-plugin">
       <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 10000;"
         src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
         alt="Fork me on GitHub">
@@ -77,7 +77,7 @@
         
                 
                     
-                  <li id="publishDate" class="pull-right">Last Published: 2013-02-28 23:02</li> <li class="divider pull-right">|</li>
+                  <li id="publishDate" class="pull-right">Last Published: 2013-02-28 23:15</li> <li class="divider pull-right">|</li>
               <li id="projectVersion" class="pull-right">Version: 1.0-SNAPSHOT</li>
             
                             </ul>
@@ -261,85 +261,38 @@ limitations under the License. -->
     
         <div class="section"><h2>Introduction<a name="Introduction"></a></h2>
             <p>
-                This plugin writes a bill of materials compatible with shasum to
-                a designated file (see <a href="create-mojo.html#bomPath">bomPath</a>)
-                The format looks like this:
-            </p>
-            <div class="source"><pre class="prettyprint">
-# company:company-parent-pom:1.0-SNAPSHOT user=mirko
-bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
-# company:child1:1.0-SNAPSHOT user=mirko
-587f6199c6adeb6e9cdbd84298a98b2b6c329b5d  child1-1.0-SNAPSHOT-sources.jar
-0987fda07a889d2a1a50a491754c96cd4b06b769  child1-1.0-SNAPSHOT.jar
-082fa2206c4a00e3f428e9100199a0337ad42fdb  child1-1.0-SNAPSHOT.pom
-# company:child2:1.0-SNAPSHOT user=mirko
-8abf906b7ccd2d319850f2d295a83dd79dc08871  child2-1.0-SNAPSHOT-sources.jar
-17108712a4ab1538c12a7ccf51330e190fde286a  child2-1.0-SNAPSHOT.jar
-5661e9270a02c5359be47615bb6ed9911105d878  child2-1.0-SNAPSHOT.pom
-            </pre></div>
-            <p>Lateron you may reuse this information by reading it back again.</p>
-            <p>As can be seen, the plugin works with multi-module projects as 
-            well, the different modules are seperated by a comment including
-            the maven coordinates and the name of the user doing the build.
+                This plugin attaches the reports of some quality plugins during install,
+                so they are deployed by default. Missing reports are ignored. For a list
+                of attached reports, take a look at
+                <a href="xref/net/oneandone/maven/plugins/attachqars/AttachMojo.html">
+                    AttachMojo
+                </a>
             </p>
         </div>
         <div class="section"><h2>Usage<a name="Usage"></a></h2>
-            <div class="section"><h3>Writing the bill of materials.<a name="Writing_the_bill_of_materials."></a></h3>
-                <p>Note that by default the plugin is invoked during the
-                    <tt>install</tt> phase, as only then we have access to the
-                    attached artifacts.
-                </p>
-                <div class="source"><pre class="prettyprint">
-    &lt;build&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;net.oneandone.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;attach-qar-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-                &lt;executions&gt;
-                    &lt;execution&gt;
-                        &lt;id&gt;create-bill-of-materials&lt;/id&gt;
-                        &lt;goals&gt;
-                            &lt;goal&gt;create&lt;/goal&gt;
-                        &lt;/goals&gt;
-                    &lt;/execution&gt;
-                &lt;/executions&gt;
-            &lt;/plugin&gt;
-       &lt;/plugin&gt;
-   &lt;/build&gt;
+            <p>Note that by default the plugin is invoked during the
+                <tt>install</tt> phase, as only after verify we have
+                the artifacts to attache.
+            </p>
+            <div class="source"><pre class="prettyprint">
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;net.oneandone.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;attach-qar-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;default-attach&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;attach&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+   &lt;/plugin&gt;
+&lt;/build&gt;
 </pre></div>
-            </div>
-            <div class="section"><h3>Reading the bill of materials.<a name="Reading_the_bill_of_materials."></a></h3>
-                <p>The information read from the file is placed in 
-                    <tt>property</tt> called 
-                    <tt>qaBillOfMaterials</tt>.
-                </p>
-                <p>See 
-                    <a class="externalLink" href="https://github.com/1and1/bill-of-materials-maven-plugin/tree/master/src/it/complete-run-including-output">integration tests</a>
-                    for more information how to use the property afterwards with e.g. the 
-                    <tt>velocity-maven-plugin</tt>.
-                </p>
-                <div class="source"><pre class="prettyprint">
-    &lt;build&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;net.oneandone.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;attach-qar-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-                &lt;executions&gt;
-                    &lt;execution&gt;
-                        &lt;id&gt;read-bill-of-materials&lt;/id&gt;
-                        &lt;phase&gt;process-resources&lt;/phase&gt;
-                        &lt;goals&gt;
-                            &lt;goal&gt;read&lt;/goal&gt;
-                        &lt;/goals&gt;
-                    &lt;/execution&gt;
-                &lt;/executions&gt;
-            &lt;/plugin&gt;
-       &lt;/plugin&gt;
-   &lt;/build&gt;
-</pre></div>
-            </div>
         </div>
     
 
@@ -364,7 +317,7 @@ bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
     
                 
     <div id="ohloh" class="pull-right">
-      <script type="text/javascript" src="http://www.ohloh.net/p/bill-of-materials-maven-plugin/widgets/project_factoids.js"></script>
+      <script type="text/javascript" src="http://www.ohloh.net/p/attach-qar-maven-plugin/widgets/project_factoids.js"></script>
     </div>
         </div>
     </footer>
