@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -17,12 +17,8 @@ package net.oneandone.maven.plugins.attachqars;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -39,33 +35,61 @@ import org.apache.maven.project.MavenProjectHelper;
  * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
  */
 @Mojo(name = &quot;attach&quot;, aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
-<span class="fc" id="L42">public class AttachMojo extends AbstractMojo {</span>
+<span class="fc" id="L38">public class AttachMojo extends AbstractMojo {</span>
 
-<span class="fc" id="L44">    private static class FileToClassifier {</span>
+    /**
+     * Holder class.
+     */
+<span class="fc" id="L43">    private static class FileToClassifier {</span>
 
+        /**
+         * Filename relative to target.
+         */
         final String fileName;
+
+        /**
+         * Classifier for attachment.
+         */
         final String classifier;
 
-<span class="fc" id="L49">        public FileToClassifier(String fileName, String classifier) {</span>
-<span class="fc" id="L50">            this.fileName = fileName;</span>
-<span class="fc" id="L51">            this.classifier = classifier;</span>
-<span class="fc" id="L52">        }</span>
+        /**
+         * @param fileName   see field.
+         * @param classifier see field.
+         */
+<span class="fc" id="L59">        public FileToClassifier(String fileName, String classifier) {</span>
+<span class="fc" id="L60">            this.fileName = fileName;</span>
+<span class="fc" id="L61">            this.classifier = classifier;</span>
+<span class="fc" id="L62">        }</span>
 
+        /**
+         * Factory method.
+         *
+         * @param fileName   see field.
+         * @param classifier see field.
+         *
+         * @return instance.
+         */
         public static FileToClassifier create(String fileName, String classifier) {
-<span class="fc" id="L55">            return new FileToClassifier(fileName, classifier);</span>
+<span class="fc" id="L73">            return new FileToClassifier(fileName, classifier);</span>
         }
     }
-<span class="fc" id="L58">    private final static List&lt;FileToClassifier&gt; fileToClassifiers = Arrays.asList(</span>
+
+    /**
+     * List of files to attach.
+     */
+<span class="fc" id="L80">    private final static List&lt;FileToClassifier&gt; fileToClassifiers = Arrays.asList(</span>
             FileToClassifier.create(&quot;checkstyle-result.xml&quot;, &quot;checkstyle-report&quot;),
             FileToClassifier.create(&quot;pmd.xml&quot;, &quot;pmd-report&quot;),
             FileToClassifier.create(&quot;cpd.xml&quot;, &quot;cpd-report&quot;),
             FileToClassifier.create(&quot;findbugsXml.xml&quot;, &quot;findbugs-report&quot;),
             FileToClassifier.create(&quot;site/jacoco/jacoco.xml&quot;, &quot;jacoco-report&quot;));
+
     /**
      * The Maven project.
      */
     @Parameter(defaultValue = &quot;${project}&quot;, readonly = true)
     private MavenProject project;
+
     /**
      * Project Helper for attaching files.
      */
@@ -74,21 +98,21 @@ import org.apache.maven.project.MavenProjectHelper;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-<span class="fc" id="L77">        final String projectForLog = String.format(</span>
+<span class="fc" id="L101">        final String projectForLog = String.format(</span>
                 Locale.UK, &quot;%s:%s:%s&quot;, project.getGroupId(), project.getArtifactId(), project.getVersion());
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (project.getPackaging().equals(&quot;pom&quot;)) {</span>
-<span class="fc" id="L80">            getLog().info(&quot;Skipping execution for pom project &quot; + projectForLog);</span>
-<span class="fc" id="L81">            return;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (project.getPackaging().equals(&quot;pom&quot;)) {</span>
+<span class="fc" id="L104">            getLog().info(&quot;Skipping execution for pom project &quot; + projectForLog);</span>
+<span class="fc" id="L105">            return;</span>
         }
-<span class="fc" id="L83">        final File targetDirectory = new File(project.getBuild().getDirectory());</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">        for (final FileToClassifier fileToClassifier : fileToClassifiers) {</span>
-<span class="fc" id="L85">            final File result = new File(targetDirectory, fileToClassifier.fileName);</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (result.exists()) {</span>
-<span class="fc" id="L87">                projectHelper.attachArtifact(project, &quot;xml&quot;, fileToClassifier.classifier, result);</span>
+<span class="fc" id="L107">        final File targetDirectory = new File(project.getBuild().getDirectory());</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (final FileToClassifier fileToClassifier : fileToClassifiers) {</span>
+<span class="fc" id="L109">            final File result = new File(targetDirectory, fileToClassifier.fileName);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            if (result.exists()) {</span>
+<span class="fc" id="L111">                projectHelper.attachArtifact(project, &quot;xml&quot;, fileToClassifier.classifier, result);</span>
             } else {
-<span class="fc" id="L89">                getLog().info(result + &quot; not found in &quot; + projectForLog);</span>
+<span class="fc" id="L113">                getLog().info(result + &quot; not found in &quot; + projectForLog);</span>
             }
-<span class="fc" id="L91">        }</span>
-<span class="fc" id="L92">    }</span>
+<span class="fc" id="L115">        }</span>
+<span class="fc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>

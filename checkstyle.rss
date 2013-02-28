@@ -11,7 +11,7 @@
       <title>File: 1,
              Errors: 0,
              Warnings: 0,
-             Infos: 16
+             Infos: 6
       </title>
             <link>http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html</link>
       <description>
@@ -32,7 +32,7 @@
                   <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.AttachMojo.java">net/oneandone/maven/plugins/attachqars/AttachMojo.java</a>
                 </td>
                 <td>
-                  16
+                  6
                 </td>
                 <td>
                   0
