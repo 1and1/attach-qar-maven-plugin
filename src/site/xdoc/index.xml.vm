@@ -27,7 +27,7 @@ limitations under the License.
                 so they are deployed by default. Missing reports are ignored. For a list
                 of attached reports, take a look at
                 <a href="xref/net/oneandone/maven/plugins/attachqars/FileToClassifiers.html">
-                    AttachMojo
+                    FileToClassifiers
                 </a>
             </p>
         </section>
