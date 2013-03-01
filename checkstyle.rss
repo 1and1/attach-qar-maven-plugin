@@ -8,10 +8,10 @@
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 1&1</copyright>
     <item>
-      <title>File: 1,
+      <title>File: 3,
              Errors: 0,
              Warnings: 0,
-             Infos: 6
+             Infos: 1
       </title>
             <link>http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html</link>
       <description>
@@ -29,10 +29,38 @@
           <tbody>
                           <tr>
                 <td>
+                  <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.FileToClassifiers.java">net/oneandone/maven/plugins/attachqars/FileToClassifiers.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.package-info.java">net/oneandone/maven/plugins/attachqars/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.AttachMojo.java">net/oneandone/maven/plugins/attachqars/AttachMojo.java</a>
                 </td>
                 <td>
-                  6
+                  1
                 </td>
                 <td>
                   0
