@@ -16,8 +16,6 @@
 package net.oneandone.maven.plugins.attachqars;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -36,53 +34,6 @@ import org.apache.maven.project.MavenProjectHelper;
  */
 @Mojo(name = "attach", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
 public class AttachMojo extends AbstractMojo {
-
-    /**
-     * Holder class.
-     */
-    private static class FileToClassifier {
-
-        /**
-         * Filename relative to target.
-         */
-        final String fileName;
-
-        /**
-         * Classifier for attachment.
-         */
-        final String classifier;
-
-        /**
-         * @param fileName   see field.
-         * @param classifier see field.
-         */
-        public FileToClassifier(String fileName, String classifier) {
-            this.fileName = fileName;
-            this.classifier = classifier;
-        }
-
-        /**
-         * Factory method.
-         *
-         * @param fileName   see field.
-         * @param classifier see field.
-         *
-         * @return instance.
-         */
-        public static FileToClassifier create(String fileName, String classifier) {
-            return new FileToClassifier(fileName, classifier);
-        }
-    }
-
-    /**
-     * List of files to attach.
-     */
-    private final static List<FileToClassifier> fileToClassifiers = Arrays.asList(
-            FileToClassifier.create("checkstyle-result.xml", "checkstyle-report"),
-            FileToClassifier.create("pmd.xml", "pmd-report"),
-            FileToClassifier.create("cpd.xml", "cpd-report"),
-            FileToClassifier.create("findbugsXml.xml", "findbugs-report"),
-            FileToClassifier.create("site/jacoco/jacoco.xml", "jacoco-report"));
 
     /**
      * The Maven project.
@@ -105,10 +56,10 @@ public class AttachMojo extends AbstractMojo {
             return;
         }
         final File targetDirectory = new File(project.getBuild().getDirectory());
-        for (final FileToClassifier fileToClassifier : fileToClassifiers) {
-            final File result = new File(targetDirectory, fileToClassifier.fileName);
+        for (final FileToClassifiers fileToClassifier : FileToClassifiers.values()) {
+            final File result = new File(targetDirectory, fileToClassifier.getFileName());
             if (result.exists()) {
-                projectHelper.attachArtifact(project, "xml", fileToClassifier.classifier, result);
+                projectHelper.attachArtifact(project, "xml", fileToClassifier.getClassifier(), result);
             } else {
                 getLog().info(result + " not found in " + projectForLog);
             }
