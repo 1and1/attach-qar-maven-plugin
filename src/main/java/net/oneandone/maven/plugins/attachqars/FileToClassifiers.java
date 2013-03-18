@@ -29,7 +29,9 @@ public enum FileToClassifiers {
     /** Findbugs. */
     Findbugs("findbugsXml.xml", "findbugs-report"),
     /** Jacoco. */
-    Jacoco("site/jacoco/jacoco.xml", "jacoco-report");
+    Jacoco("site/jacoco/jacoco.xml", "jacoco-report"),
+    /** Jacoco integration test results. */
+    JacocoIt("site/jacoco-it/jacoco.xml", "jacoco-it-report");
 
     /**
      * Filename relative to target.
