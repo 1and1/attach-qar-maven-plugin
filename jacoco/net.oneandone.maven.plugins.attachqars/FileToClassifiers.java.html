@@ -29,7 +29,9 @@ package net.oneandone.maven.plugins.attachqars;
     /** Findbugs. */
 <span class="fc" id="L30">    Findbugs(&quot;findbugsXml.xml&quot;, &quot;findbugs-report&quot;),</span>
     /** Jacoco. */
-<span class="fc" id="L32">    Jacoco(&quot;site/jacoco/jacoco.xml&quot;, &quot;jacoco-report&quot;);</span>
+<span class="fc" id="L32">    Jacoco(&quot;site/jacoco/jacoco.xml&quot;, &quot;jacoco-report&quot;),</span>
+    /** Jacoco integration test results. */
+<span class="fc" id="L34">    JacocoIt(&quot;site/jacoco-it/jacoco.xml&quot;, &quot;jacoco-it-report&quot;);</span>
 
     /**
      * Filename relative to target.
@@ -45,23 +47,23 @@ package net.oneandone.maven.plugins.attachqars;
      * @param fileName to attach.
      * @param classifier of attachment.
      */
-<span class="fc" id="L48">    private FileToClassifiers(String fileName, String classifier) {</span>
-<span class="fc" id="L49">        this.fileName = fileName;</span>
-<span class="fc" id="L50">        this.classifier = classifier;</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L50">    private FileToClassifiers(String fileName, String classifier) {</span>
+<span class="fc" id="L51">        this.fileName = fileName;</span>
+<span class="fc" id="L52">        this.classifier = classifier;</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * @return the fileName
      */
     String getFileName() {
-<span class="fc" id="L57">        return fileName;</span>
+<span class="fc" id="L59">        return fileName;</span>
     }
 
     /**
      * @return the classifier
      */
     String getClassifier() {
-<span class="fc" id="L64">        return classifier;</span>
+<span class="fc" id="L66">        return classifier;</span>
     }
 
 }
