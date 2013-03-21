@@ -21,7 +21,7 @@
         <findbugs-maven-plugin.excludeFilterFile>src/conf/findbugs-exclude.xml</findbugs-maven-plugin.excludeFilterFile>
         <cobertura.skip>true</cobertura.skip>
         <scmpublish.content>target/staging/attach-qar-maven-plugin</scmpublish.content>
-        <jacoco.propertyName>invoker.mavenOpts</jacoco.propertyName>
+        <invoker.mavenOpts>${argLine}</invoker.mavenOpts>
     </properties>
     <scm>
         <connection>scm:git:git://github.com/1and1/attach-qar-maven-plugin.git</connection>
