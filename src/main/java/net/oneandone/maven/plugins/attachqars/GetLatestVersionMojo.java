@@ -31,7 +31,11 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.IOUtil;
 
 /**
- * Attaches a number of hardcoded reports for deployment during install.
+ * Retrieves the latest version of the project from Artifactory and put it into a property
+ * for later usage in other plugins. 
+ * Similar to the
+ * <a href="http://mojo.codehaus.org/buildnumber-maven-plugin/create-mojo.html">
+ * <tt>buildnumber:create<tt></a> Mojo.
  *
  * @author Mirko Friedenhagen
  */
