@@ -42,12 +42,27 @@ public class GetLatestVersionMojo extends AbstractMojo {
      * The Maven project.
      */
     @Parameter(defaultValue = "${project}", readonly = true)
-    private MavenProject project;
-    @Parameter(property = "attach-qar.artifactory-uri", required = true)
-    private URI artifactoryUri;
-    @Parameter(defaultValue = "libs-release-local", property = "attach-qar.repos-name", required = true)
-    private String reposName;
+    private final MavenProject project;
 
+    /**
+     * URI pointing to Artifactory, e.g. http://localhost:8081/artifactory/.
+     */
+    @Parameter(property = "attach-qar.artifactory-uri", required = true)
+    private final URI artifactoryUri;
+
+    /**
+     * Name of the repository for resolution of the latest version.
+     */
+    @Parameter(defaultValue = "libs-release-local", property = "attach-qar.repos-name", required = true)
+    private final String reposName;
+
+    /**
+     * Constructor for tests.
+     *
+     * @param project to inspect.
+     * @param artifactoryUri see {@link GetLatestVersionMojo#artifactoryUri}.
+     * @param reposName see {@link GetLatestVersionMojo#reposName}.
+     */
     GetLatestVersionMojo(MavenProject project, URI artifactoryUri, String reposName) {
         this.project = project;
         this.artifactoryUri = artifactoryUri;
@@ -56,13 +71,13 @@ public class GetLatestVersionMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        String groupId = project.getGroupId();
-        String artifactId = project.getArtifactId();
+        final String groupId = project.getGroupId();
+        final String artifactId = project.getArtifactId();
         final URI searchUri = createUri(groupId, artifactId);
         try {
             final URL searchUrl = searchUri.toURL();
-            HttpURLConnection openConnection = openConnection(searchUrl);
-            InputStream in = openConnection.getInputStream();
+            final HttpURLConnection openConnection = openConnection(searchUrl);
+            final InputStream in = openConnection.getInputStream();
             try {
                 System.out.println(IOUtil.toString(in));
             } finally {
@@ -75,14 +90,27 @@ public class GetLatestVersionMojo extends AbstractMojo {
         }        
     }
 
+    /**
+     * Creates the search URI.
+     *
+     * @param groupId of the project.
+     * @param artifactId of the project.
+     * @return complete search URI.
+     */
     URI createUri(final String groupId, final String artifactId) {
+        final String searchPart = "api/search/latestVersion?repos=" + reposName + "&g=" + groupId + "&a=" + artifactId;
         if (artifactoryUri.getPath().endsWith("/")) {
-            return artifactoryUri.resolve("api/search/latestVersion?repos=" + reposName + "&g=" + groupId + "&a=" + artifactId);
+            return artifactoryUri.resolve(searchPart);
         } else {
-            return URI.create(artifactoryUri.toString() + "/").resolve("api/search/latestVersion?repos=" + reposName + "&g=" + groupId + "&a=" + artifactId);
+            return URI.create(artifactoryUri.toString() + "/").resolve(searchPart);
         }
     }
-
+    /**
+     * Open a connection, used for tests.
+     * @param searchUrl to connect to.
+     * @return connection.
+     * @throws IOException when the connection could not be opened.
+     */
     HttpURLConnection openConnection(final URL searchUrl) throws IOException {
         return (HttpURLConnection) searchUrl.openConnection();
     }
