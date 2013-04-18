@@ -36,7 +36,7 @@ import org.codehaus.plexus.util.IOUtil;
  * 
  * <p>Similar to the
  * <a href="http://mojo.codehaus.org/buildnumber-maven-plugin/create-mojo.html">
- * <tt>buildnumber:create<tt></a> Mojo.
+ * <tt>buildnumber:create</tt></a> Mojo.
  * Invokes something like 
  * <tt>http://host/artifactory/api/search/latestVersion?reposname=repo1&amp;g=commons-logging&amp;a=commons-logging</tt>.
  * For more information take a look at the documention of the
@@ -63,7 +63,8 @@ public class GetLatestVersionMojo extends AbstractMojo {
     /**
      * Name of the property holding the latest version from the repository.
      */
-    @Parameter(defaultValue = "latestVersionFromRepository", property = "attach-qar.latest-version-property-name", required = true)
+    @Parameter(defaultValue = "latestVersionFromRepository", property = "attach-qar.latest-version-property-name",
+            required = true)
     private final String latestVersionPropertyName;
 
     /**
