@@ -22,7 +22,9 @@
         <cobertura.skip>true</cobertura.skip>
         <scmpublish.content>target/staging/attach-qar-maven-plugin</scmpublish.content>
         <invoker.mavenOpts>${argLine}</invoker.mavenOpts>
+        <jacoco.check.instructionRatio>98</jacoco.check.instructionRatio>
     </properties>
+    
     <scm>
         <connection>scm:git:git://github.com/1and1/attach-qar-maven-plugin.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/1and1/attach-qar-maven-plugin.git</developerConnection>
