@@ -51,11 +51,16 @@ public class GetLatestVersionMojo extends AbstractMojo {
     private final URI artifactoryUri;
 
     /**
+     * Name of the property holding the latest version from the repository.
+     */
+    @Parameter(defaultValue = "latestVersionFromRepository", property = "attach-qar.latest-version-property-name", required = true)
+    private final String latestVersionPropertyName;
+
+    /**
      * Name of the repository for resolution of the latest version.
      */
     @Parameter(defaultValue = "libs-release-local", property = "attach-qar.repos-name", required = true)
     private final String reposName;
-
     /**
      * Constructor for tests.
      *
@@ -67,6 +72,7 @@ public class GetLatestVersionMojo extends AbstractMojo {
         this.project = project;
         this.artifactoryUri = artifactoryUri;
         this.reposName = reposName;
+        this.latestVersionPropertyName = "latestVersionFromRepository";
     }
 
     @Override
@@ -79,7 +85,7 @@ public class GetLatestVersionMojo extends AbstractMojo {
             final HttpURLConnection openConnection = openConnection(searchUrl);
             final InputStream in = openConnection.getInputStream();
             try {
-                System.out.println(IOUtil.toString(in));
+                project.getProperties().setProperty(latestVersionPropertyName, IOUtil.toString(in));
             } finally {
                 in.close();
             }
@@ -87,7 +93,7 @@ public class GetLatestVersionMojo extends AbstractMojo {
             throw new MojoFailureException("Could not convert " + searchUri + " to URL", ex);
         } catch (IOException ex) {
             throw new MojoExecutionException("Could not fetch latestVersion: " + searchUri, ex);
-        }        
+        }
     }
 
     /**

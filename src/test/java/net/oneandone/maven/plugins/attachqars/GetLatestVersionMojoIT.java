@@ -21,9 +21,11 @@ import java.net.URI;
 import java.net.URL;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import static org.junit.Assume.assumeThat;
 import static org.hamcrest.CoreMatchers.startsWith;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Mirko Friedenhagen
@@ -44,11 +46,13 @@ public class GetLatestVersionMojoIT extends AbstractGetLatestVersionMojoTest {
 
     @Test
     public void testGetLatestCommonsLogging() throws MojoFailureException, MojoExecutionException {
-        String artifactoryInstance = System.getenv("ARTIFACTORY_INSTANCE");
+        final String artifactoryInstance = System.getenv("ARTIFACTORY_INSTANCE");
         assumeThat("ARTIFACTORY_INSTANCE must start with http://", artifactoryInstance, startsWith("http://"));
-        URI uri = URI.create(artifactoryInstance);
+        final URI uri = URI.create(artifactoryInstance);
+        final MavenProject project = createProject();
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(
-                createProject(), uri, REPOS_NAME);
+                project, uri, REPOS_NAME);
         sut.execute();
+        assertEquals("1.1.2", project.getProperties().getProperty("latestVersionFromRepository"));
     }
 }

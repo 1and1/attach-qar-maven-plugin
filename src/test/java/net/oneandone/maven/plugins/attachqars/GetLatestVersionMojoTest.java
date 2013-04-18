@@ -41,8 +41,9 @@ public class GetLatestVersionMojoTest extends AbstractGetLatestVersionMojoTest {
      */
     @Test
     public void testExecute() throws Exception {
+        final MavenProject project = createProject();
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(
-                createProject(), URI.create("http://does.not.matter/artifactory"), REPOS_NAME) {
+                project, URI.create("http://does.not.matter/artifactory"), REPOS_NAME) {
             @Override
             HttpURLConnection openConnection(URL searchUrl) throws IOException {
                 final HttpURLConnection mockConnection = mock(HttpURLConnection.class);
@@ -51,6 +52,7 @@ public class GetLatestVersionMojoTest extends AbstractGetLatestVersionMojoTest {
             }
         };
         sut.execute();
+        assertEquals("1.1.1", project.getProperties().getProperty("latestVersionFromRepository"));
     }
 
     @Test(expected = MojoFailureException.class)
