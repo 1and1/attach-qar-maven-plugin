@@ -33,9 +33,15 @@ import org.codehaus.plexus.util.IOUtil;
 /**
  * Retrieves the latest version of the project from Artifactory and put it into a property
  * for later usage in other plugins. 
- * Similar to the
+ * 
+ * <p>Similar to the
  * <a href="http://mojo.codehaus.org/buildnumber-maven-plugin/create-mojo.html">
  * <tt>buildnumber:create<tt></a> Mojo.
+ * Invokes something like 
+ * <tt>http://host/artifactory/api/search/latestVersion?reposname=repo1&amp;g=commons-logging&amp;a=commons-logging</tt>.
+ * For more information take a look at the documention of the
+ * <a href="http://wiki.jfrog.org/confluence/display/RTF/Artifactory's+REST+API#Artifactory'sRESTAPI-ArtifactLatestVersionSearch">
+ * REST-API</a> of Artifactory.</p>
  *
  * @author Mirko Friedenhagen
  */
