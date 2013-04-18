@@ -71,7 +71,7 @@ public class GetLatestVersionMojo extends AbstractMojo {
         } catch (MalformedURLException ex) {
             throw new MojoFailureException("Could not convert " + searchUri + " to URL", ex);
         } catch (IOException ex) {
-            throw new MojoFailureException("Could not fetch latestVersion: " + searchUri, ex);
+            throw new MojoExecutionException("Could not fetch latestVersion: " + searchUri, ex);
         }        
     }
 
