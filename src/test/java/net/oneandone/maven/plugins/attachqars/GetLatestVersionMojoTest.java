@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
@@ -27,18 +28,13 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
- *
  * @author Mirko Friedenhagen
  */
-public class GetLatestVersionMojoTest {
+public class GetLatestVersionMojoTest extends AbstractGetLatestVersionMojoTest {
 
     private static final String EXPECTED = "http://myrepo/artifactory/api/search/latestVersion?repos=repo1&g=commons-logging&a=commons-logging";
     private static final URI ARTIFACTORY_URL_WITHOUT_SLASH = URI.create("http://myrepo/artifactory");
     private static final URI ARTIFACTORY_URL_WITH_SLASH = URI.create("http://myrepo/artifactory/");
-    private static final String REPOS_NAME = "repo1";
-
-    public GetLatestVersionMojoTest() {
-    }
 
     /**
      * Test of execute method, of class GetLatestVersionMojo.
@@ -68,6 +64,19 @@ public class GetLatestVersionMojoTest {
         };
         sut.execute();
     }
+
+    @Test(expected = MojoExecutionException.class)
+    public void testExecuteIOException() throws Exception {
+        final GetLatestVersionMojo sut = new GetLatestVersionMojo(
+                createProject(), URI.create("http://does.not.matter/artifactory"), REPOS_NAME) {
+            @Override
+            HttpURLConnection openConnection(URL searchUrl) throws IOException {
+                throw new IOException("Oops");
+            }
+        };
+        sut.execute();
+    }
+
     /**
      * Test of createUri method, of class GetLatestVersionMojo.
      */
@@ -77,7 +86,6 @@ public class GetLatestVersionMojoTest {
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(project, ARTIFACTORY_URL_WITHOUT_SLASH, REPOS_NAME);
         final URI result = sut.createUri(project.getGroupId(), project.getArtifactId());
         assertEquals(EXPECTED, result.toString());
-
     }
 
     /**
@@ -89,13 +97,7 @@ public class GetLatestVersionMojoTest {
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(project, ARTIFACTORY_URL_WITH_SLASH, REPOS_NAME);
         final URI result = sut.createUri(project.getGroupId(), project.getArtifactId());
         assertEquals(EXPECTED, result.toString());
-
     }
 
-    private MavenProject createProject() {
-        final MavenProject project = new MavenProject();
-        project.setGroupId("commons-logging");
-        project.setArtifactId("commons-logging");
-        return project;
-    }
+
 }

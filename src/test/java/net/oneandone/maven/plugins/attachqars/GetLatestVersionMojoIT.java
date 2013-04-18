@@ -16,10 +16,39 @@
 
 package net.oneandone.maven.plugins.attachqars;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.junit.Test;
+import static org.junit.Assume.assumeThat;
+import static org.hamcrest.CoreMatchers.startsWith;
+
 /**
- *
- * @author mifr
+ * @author Mirko Friedenhagen
  */
-public class GetLatestVersionMojoIT {
-    
+public class GetLatestVersionMojoIT extends AbstractGetLatestVersionMojoTest {
+
+    /**
+     * Test of openConnection method, of class GetLatestVersionMojo.
+     */
+    @Test
+    public void testOpenConnection() throws IOException {
+        final URI uri = URI.create("http://google.de/");
+        final GetLatestVersionMojo sut = new GetLatestVersionMojo(
+                createProject(), uri, REPOS_NAME);
+        URL searchUrl = uri.toURL();
+        sut.openConnection(searchUrl);
+    }
+
+    @Test
+    public void testGetLatestCommonsLogging() throws MojoFailureException, MojoExecutionException {
+        String artifactoryInstance = System.getenv("ARTIFACTORY_INSTANCE");
+        assumeThat("ARTIFACTORY_INSTANCE must start with http://", artifactoryInstance, startsWith("http://"));
+        URI uri = URI.create(artifactoryInstance);
+        final GetLatestVersionMojo sut = new GetLatestVersionMojo(
+                createProject(), uri, REPOS_NAME);
+        sut.execute();
+    }
 }
