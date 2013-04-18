@@ -17,10 +17,10 @@ package net.oneandone.maven.plugins.attachqars;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,20 +45,29 @@ public class GetLatestVersionMojoTest {
      */
     @Test
     public void testExecute() throws Exception {
-        MavenProject project = createProject();
-        project.setArtifactId("foo");
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(
-                project, URI.create("http://mamrepo.united.domain/artifactory"), REPOS_NAME) {
+                createProject(), URI.create("http://does.not.matter/artifactory"), REPOS_NAME) {
             @Override
-            HttpURLConnection openConnection(URL searchUrl) throws IOException {                
-                final HttpURLConnection mockConnection = mock(HttpURLConnection.class);                
+            HttpURLConnection openConnection(URL searchUrl) throws IOException {
+                final HttpURLConnection mockConnection = mock(HttpURLConnection.class);
                 when(mockConnection.getInputStream()).thenReturn(new ByteArrayInputStream("1.1.1".getBytes()));
                 return mockConnection;
-            }            
+            }
         };
         sut.execute();
     }
 
+    @Test(expected = MojoFailureException.class)
+    public void testExecuteMalformedURLException() throws Exception {
+        final GetLatestVersionMojo sut = new GetLatestVersionMojo(
+                createProject(), URI.create("hp://does.not.matter/artifactory"), REPOS_NAME) {
+            @Override
+            HttpURLConnection openConnection(URL searchUrl) throws IOException {
+                return null;
+            }
+        };
+        sut.execute();
+    }
     /**
      * Test of createUri method, of class GetLatestVersionMojo.
      */
