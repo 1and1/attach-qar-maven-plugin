@@ -22,6 +22,7 @@
         <cobertura.skip>true</cobertura.skip>
         <scmpublish.content>target/staging/attach-qar-maven-plugin</scmpublish.content>
         <invoker.mavenOpts>${argLine}</invoker.mavenOpts>
+        <!-- close in finally seems to be uncoverable. -->
         <jacoco.check.instructionRatio>98</jacoco.check.instructionRatio>
     </properties>
     
