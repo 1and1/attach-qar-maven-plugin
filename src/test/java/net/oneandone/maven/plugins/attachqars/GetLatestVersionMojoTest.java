@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
  */
 public class GetLatestVersionMojoTest extends AbstractGetLatestVersionMojoTest {
 
-    private static final String EXPECTED = "http://myrepo/artifactory/api/search/latestVersion?repos=repo1&g=commons-logging&a=commons-logging";
+    private static final String EXPECTED = "http://myrepo/artifactory/api/search/latestVersion?repos=repo1&g=commons-logging&a=commons-logging&remote=1";
     private static final URI ARTIFACTORY_URL_WITHOUT_SLASH = URI.create("http://myrepo/artifactory");
     private static final URI ARTIFACTORY_URL_WITH_SLASH = URI.create("http://myrepo/artifactory/");
 

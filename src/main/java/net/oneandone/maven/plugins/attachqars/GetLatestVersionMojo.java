@@ -38,7 +38,7 @@ import org.codehaus.plexus.util.IOUtil;
  * <a href="http://mojo.codehaus.org/buildnumber-maven-plugin/create-mojo.html">
  * <tt>buildnumber:create</tt></a> Mojo.
  * Invokes something like 
- * <tt>http://host/artifactory/api/search/latestVersion?reposname=repo1&amp;g=commons-logging&amp;a=commons-logging</tt>.
+ * <tt>http://host/artifactory/api/search/latestVersion?reposname=repo1&amp;g=commons-logging&amp;a=commons-logging&amp;remote=1</tt>.
  * For more information take a look at the documention of the
  * <a href="http://wiki.jfrog.org/confluence/display/RTF/Artifactory's+REST+API#Artifactory'sRESTAPI-ArtifactLatestVersionSearch">
  * REST-API</a> of Artifactory.</p>
@@ -115,7 +115,8 @@ public class GetLatestVersionMojo extends AbstractMojo {
      * @return complete search URI.
      */
     URI createUri(final String groupId, final String artifactId) {
-        final String searchPart = "api/search/latestVersion?repos=" + reposName + "&g=" + groupId + "&a=" + artifactId;
+        final String searchPart = 
+                "api/search/latestVersion?repos=" + reposName + "&g=" + groupId + "&a=" + artifactId + "&remote=1";
         if (artifactoryUri.getPath().endsWith("/")) {
             return artifactoryUri.resolve(searchPart);
         } else {
