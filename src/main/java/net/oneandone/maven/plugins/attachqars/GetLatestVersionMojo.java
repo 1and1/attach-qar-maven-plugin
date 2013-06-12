@@ -40,7 +40,7 @@ import org.codehaus.plexus.util.IOUtil;
  * Invokes something like 
  * <tt>http://host/artifactory/api/search/latestVersion?reposname=repo1&amp;g=commons-logging&amp;a=commons-logging&amp;remote=1</tt>.
  * For more information take a look at the documention of the
- * <a href="http://wiki.jfrog.org/confluence/display/RTF/Artifactory's+REST+API#Artifactory'sRESTAPI-ArtifactLatestVersionSearch">
+ * <a href="http://wiki.jfrog.org/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-ArtifactLatestVersionSearch">
  * REST-API</a> of Artifactory.</p>
  *
  * @author Mirko Friedenhagen
