@@ -53,6 +53,6 @@ public class GetLatestVersionMojoIT extends AbstractGetLatestVersionMojoTest {
         final GetLatestVersionMojo sut = new GetLatestVersionMojo(
                 project, uri, REPOS_NAME);
         sut.execute();
-        assertEquals("1.1.2", project.getProperties().getProperty("latestVersionFromRepository"));
+        assertEquals("1.1.3", project.getProperties().getProperty("latestVersionFromRepository"));
     }
 }
