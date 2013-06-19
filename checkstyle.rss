@@ -2,20 +2,20 @@
 
 <rss version="0.91">
   <channel>
-    <title>Attach QA Reports Maven Plugin - Checkstyle report</title>
-    <link>http://1and1.github.com/attach-qar-maven-plugin/</link>
-    <description>Attach QA Reports Maven Plugin - Checkstyle report</description>
+    <title>1-and-1 :: Attach QA Reports Plugin for Maven - Checkstyle report</title>
+    <link>http://1and1.github.io/attach-qar-maven-plugin/</link>
+    <description>1-and-1 :: Attach QA Reports Plugin for Maven - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 1&1</copyright>
     <item>
-      <title>File: 3,
+      <title>File: 4,
              Errors: 0,
              Warnings: 0,
-             Infos: 1
+             Infos: 0
       </title>
-            <link>http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html</link>
+            <link>http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.FileToClassifiers.java">net/oneandone/maven/plugins/attachqars/FileToClassifiers.java</a>
+                  <a href="http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.FileToClassifiers.java">net/oneandone/maven/plugins/attachqars/FileToClassifiers.java</a>
                 </td>
                 <td>
                   0
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.package-info.java">net/oneandone/maven/plugins/attachqars/package-info.java</a>
+                  <a href="http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.package-info.java">net/oneandone/maven/plugins/attachqars/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -57,10 +57,24 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.AttachMojo.java">net/oneandone/maven/plugins/attachqars/AttachMojo.java</a>
+                  <a href="http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.GetLatestVersionMojo.java">net/oneandone/maven/plugins/attachqars/GetLatestVersionMojo.java</a>
                 </td>
                 <td>
-                  1
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://1and1.github.io/attach-qar-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.attachqars.AttachMojo.java">net/oneandone/maven/plugins/attachqars/AttachMojo.java</a>
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
