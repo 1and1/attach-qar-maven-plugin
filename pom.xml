@@ -13,7 +13,7 @@
 
     <name>1-and-1 :: Attach QA Reports Plugin for Maven</name>
     <description>Attach certain QA reports so they are deployed, namely findbugs, checkstyle, pmd, cpd and jacoco</description>
-    <url>http://1and1.github.com/attach-qar-maven-plugin/</url>
+    <url>http://1and1.github.io/attach-qar-maven-plugin/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
